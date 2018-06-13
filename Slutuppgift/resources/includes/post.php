@@ -32,7 +32,9 @@ function slugify($slug, $strict = false) {
 
 if ($pdo) {
 
-    // Kommentar här
+    // Ser ut som ett rätt enkelt SELECT kommando där du selectar ID och Username från tabell "Users" och sedan sorterar efter Username. Självklarligen lägger den till detta i variabeln $sql
+    // Här lägger den till saker till $sql och lägger till $users till array.
+    // den tar också och gör foreach kommando med variabeln $pdo, $sql och förlänger $pdo med en funktion.
     $sql = 'SELECT ID, Username FROM Users ORDER BY Username';
     $users = array();
     foreach ($pdo->query($sql) as $row) {
@@ -51,15 +53,15 @@ if ($pdo) {
     /********** genom variablerna $headline & $text. **********/
     /**********************************************************/
 
-    // Kommentar här
+    // Här är det en IF fråga och isset. Så det frågar alltså om följande är set så gör följande
     if (isset($_POST['submit'])) {
-        $user = $_POST['author']; //Kommentar här
-        $headline = $_POST['title']; //Kommentar här
+        $user = $_POST['author']; // Variabeln $_POST blir tillagd i $user (vem som skrev inlägget blir tillagd)
+        $headline = $_POST['title']; //Det som är titeln på inlägget blir sparat i $headline
         $headline = trim($headline);
 
-        $slug = slugify($headline); //Kommentar här
+        $slug = slugify($headline); //Här förkortar (slugify'ar) den headlinen så att en headline som är vardags middag blir till vardags_middag vilket är enklare för datorn att läsa
 
-        $text = $_POST['message']; //Kommentar här
+        $text = $_POST['message']; //Här gör den precis samma som author och title men med text. Den sparar alltså texten som posten innehåller till variabeln $text
 
         $sql = 'INSERT INTO Posts (User_ID, Slug, Headline, Text) VALUES ("'.$user.'", "'.$slug.'", "'.$headline.'", "'.$text.'")';
 
@@ -72,7 +74,7 @@ if ($pdo) {
         /* databasen. Tänk på att namn på tabell & kolumner i er **/
         /* databas kan skiljas något från det jag angivit i $sql. */
         /**********************************************************/
-        if(condition) {
+        if($pdo->query($sql)) {
             $message = 'Du har lyckats lägga upp ett inlägg';
         }
 

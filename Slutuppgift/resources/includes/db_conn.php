@@ -3,7 +3,7 @@
 $host = 'localhost';
 $dbname = 'blogg';
 $user = 'admin';
-$password = 'localhorse';
+$password = 'localhost';
 
 //Attribute for our PDO-object
 $attr = array(PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC);
